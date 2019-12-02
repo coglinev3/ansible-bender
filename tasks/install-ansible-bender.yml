@@ -1,0 +1,14 @@
+---
+# file: roles/ansible-bender/tasks/install-ansible-bender.yml
+
+- name: "Install ansible and ansible-bender"
+  become: "true"
+  pip:
+    name: "{{ ab_python_packges }}"
+    state: "{{ ab_python_packge_state }}"
+    umask: "0022"
+    executable: pip3
+  when: not ansible_check_mode
+  tags:
+    - install
+

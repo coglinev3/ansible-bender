@@ -1,0 +1,20 @@
+---
+# file: roles/ansible-bender/vars/RedHat-8.yml
+
+ab_dependencies:
+  - buildah
+  - podman
+  - python3
+  - python3-setuptools
+  - python3-pip
+  - python3-virtualenv
+  - shadow-utils
+  - slirp4netns
+
+ab_python_packges:
+  - wheel
+  - ansible
+  - ansible-bender
+  - selinux
+
+ab_container_search_registry: "'docker.io', 'registry.access.redhat.com', 'registry.fedoraproject.org', 'quay.io', 'registry.access.redhat.com', 'registry.centos.org'"

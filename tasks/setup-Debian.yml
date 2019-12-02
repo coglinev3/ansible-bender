@@ -1,0 +1,21 @@
+---
+# file: roles/ansible-bender/tasks/setup-debian.yml
+
+- name: Install repository for buildah and podman
+  become: "true"
+  apt_repository:
+    repo: ppa:projectatomic/ppa
+    codename: "{{ ansible_distribution_release }}"
+    update_cache: "yes"
+  register: repo_result
+  tags:
+    - install
+
+- name: "Install dependencies for ansible-bender"
+  become: "true"
+  apt:
+    name: "{{ ab_dependencies }}"
+    state: "{{ ab_dependencies_package_state | default('latest') }}"
+  when: not ansible_check_mode
+  tags:
+    - install
