@@ -23,6 +23,7 @@ The supported Linux distribution are:
   The old version of podman doesn't support [the rootless mode](https://github.com/containers/libpod#Rootless "rootless mode"). That's why you have to use podman with
   root under Enterprise Linux 8.
 
+
 ## Requirements
 
 Ansible-bender requires a few binaries to be present on your host system:
