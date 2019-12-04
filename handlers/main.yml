@@ -5,6 +5,12 @@
   become: "true"
   command: sysctl -p /etc/sysctl.d/60-ping_group_range.conf
 
-- name: sysctl_user_namespace 
+- name: sysctl_max_user_namespace 
   become: "true"
   command: sysctl -p /etc/sysctl.d/60-user_namespaces.conf
+
+- name: sysctl_user_namespace 
+  become: "true"
+  service:
+    name: procps
+    state: restarted

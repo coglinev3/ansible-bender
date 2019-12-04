@@ -9,14 +9,15 @@ container images.
 The supported Linux distribution are:
 * Enterprise Linux 7[^newuidmap], 
 * Enterprise Linux 8[^rootless], 
+* Debian 10 (Buster),
 * Ubuntu 18.04 LTS (Bionic Beaver),
 * Ubuntu 19.04 (Disco Dingo) and
-* Ubuntu 19.10 (Eoan Ermine).
 
 
 [^newuidmap]: The rootless mode for Podman requires the newuidmap and newgidmap
   programs to be installed. Note RHEL 7/CentOS 7 support this only since
   version 7.7.
+
 [^rootless]: At the moment RHEL 8/CentOS 8 shipps with an old version of podman
   (see discussion on [RedHat Community](https://access.redhat.com/discussions/4288731 "RHEL 8.0 - latest version of Podman")).
   The old version of podman doesn't support [the rootless mode](https://github.com/containers/libpod#Rootless "rootless mode"). That's why you have to use podman with

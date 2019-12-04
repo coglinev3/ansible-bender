@@ -56,6 +56,19 @@
   tags:
     - config
 
+- name: Enable user namespaces
+  become: "true"
+  lineinfile:
+    path: /etc/sysctl.d/00-local-userns.conf
+    regexp: '^kernel.unprivileged_userns_clone'
+    line: 'kernel.unprivileged_userns_clone=1'
+    create: "yes"
+    state: present
+  when:  ansible_distribution == "Debian"
+  notify: sysctl_user_namespace
+  tags:
+    - config
+
 - name: Configure max user namespaces
   become: "true"
   lineinfile:
@@ -66,6 +79,6 @@
     create: "yes"
     state: present
   when: not ( ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "16")
-  notify: sysctl_user_namespace
+  notify: sysctl_max_user_namespace
   tags:
     - config

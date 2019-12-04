@@ -1,36 +1,27 @@
 ---
-# file: roles/ansible-bender/defaults/main.yml
+# file: roles/ansible-bender/vars/Ubuntu.yml
 
 # ansible-bender needs python3.6 or higher
 ab_dependencies:
   - buildah
-#  - libffi-dev
-#  - libssl-dev
+  - libffi-dev
+  - libssl-dev
   - podman
   - python3
-  - python3-setuptools
-  - python-setuptools
   - python3-pip
+  - python3-setuptools
+  - python3-software-properties
   - python3-virtualenv
   - procps
   - runc
   - slirp4netns
-  - python3-software-properties
 #  - software-properties-common
-
-ab_dependencies_package_state: present
 
 ab_python_packges:
   - wheel
   - ansible
   - ansible-bender
 
-ab_python_packge_state: present
-
 
 # comma separated list of registries
 ab_container_search_registry: "'docker.io', 'registry.fedoraproject.org', 'quay.io', 'registry.access.redhat.com', 'registry.centos.org'"
-
-# a list user which can use the rootless mode:
-# see https://github.com/containers/libpod/blob/master/docs/podman-create.1.md#rootless-containers
-ab_users: []
