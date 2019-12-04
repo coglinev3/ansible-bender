@@ -1,0 +1,8 @@
+---
+# travis/test.yml
+
+- hosts: all
+  become: true
+
+  roles:
+    - { role: role-under-test }
