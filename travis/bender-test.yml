@@ -1,0 +1,42 @@
+---
+- name: Containerized version of nginx
+  hosts: all
+  vars:
+    a_variable: value
+    # configuration specific for ansible-bender
+    ansible_bender:
+      base_image: python:3-alpine
+      target_image:
+        # command to run by default when invoking the container
+        cmd: "nginx -g \"daemon off;\""
+        name: bender-nginx
+        ports: ['80', '443'] 
+        working_dir: /var/www/localhost/htdocs
+        labels:
+          build-by: "{{ ansible_user }}"
+      working_container:
+        volumes:
+        # mount this git repo to the working container at /src
+        - "{{ playbook_dir }}:/src:Z"
+  tasks:
+  - name: install dependencies needed to run project bender-nginx
+    apk:
+      name: nginx
+      state: present
+  - name: Ensure directory /run/nginx exists
+    file:
+      path: /run/nginx
+      state: directory
+      mode: '0750'
+      owner: nginx
+      group: nginx
+  - name: Create index.html file
+    copy:
+      remote_src: yes
+      src: /var/lib/nginx/html/index.html
+      dest: /var/www/localhost/htdocs/index.html
+      owner: root
+      group: root
+      mode: '0644'
+
+# vim:set nu expandtab ts=2 sw=2 sts=2
