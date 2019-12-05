@@ -2,11 +2,21 @@
 
 [![Build Status](https://travis-ci.org/coglinev3/ansible-bender.svg?branch=master)](https://travis-ci.org/coglinev3/ansible-bender)
 
+Are you tired of building containers with Dockerfiles?
+
 This role installs [ansible-bender](https://github.com/TomasTomecek/ansible-bender),
 a tool which bends containers using Ansible playbooks and turns them into
 container images.
 
-The supported Linux distribution are:
+With ansible-bender, you no longer have to build and configure containers
+differently than you do traditional virtual machines or bare-metal systems.
+You can now apply the power of Ansible and re-use your existing Ansible
+content for your containerized ecosystem. Use templates, copy files, drop in
+encrypted data, handle errors, add conditionals, and more. Everything Ansible
+brings to orchestrating your infrastructure can now be applied to the image
+build process.
+
+The supported Linux distributions for this role are:
 * Enterprise Linux 7,
 * Enterprise Linux 8, 
 * Debian 10 (Buster),
@@ -19,23 +29,25 @@ The supported Linux distribution are:
 
 The [rootless mode](https://github.com/containers/libpod/blob/master/README.md#rootless)
 for Podman requires the [newuidmap](https://github.com/containers/libpod/blob/master/troubleshooting.md#9-newuidmap-missing-when-running-rootless-podman-commands)
-programs to be installed. RHEL 7/CentOS 7 support this only since version 7.7.
+programs to be installed. Enterprise Linux 7 (RHEL 7 / CentOS 7) supports this
+only since version 7.7.
 
-At the moment RHEL 8/CentOS 8 shipps with an old version of podman
-(see discussion on [RedHat Community](https://access.redhat.com/discussions/4288731 "RHEL 8.0 - latest version of Podman")).
-The old version of podman doesn't support [the rootless mode](https://github.com/containers/libpod#Rootless "rootless mode"). That's why you have to use podman with
-root under Enterprise Linux 8.
+At the moment Enterprise Linux 8 (RHEL 8 / CentOS 8) shipps with an old version
+of podman (see discussion on [RedHat Community](https://access.redhat.com/discussions/4288731 "RHEL 8.0 - latest version of Podman")).
+The old version of podman doesn't support the [rootless mode](https://github.com/containers/libpod#Rootless "rootless mode").
+That's why you have to use podman with *root* under Enterprise Linux 8.
 
 ---
+
 
 ## Requirements
 
 Ansible-bender requires a few binaries to be present on your host system:
 
-* Podman
 * Buildah
-* Ansible (***Ansible needs to be built against python 3***)
+* Podman
 * Python 3.6 or later (python 3.5 or earlier are not supported and known not to be working)
+* Ansible (***Ansible needs to be built against python 3***)
 
 These requirements will be installed with this role.
 
@@ -49,17 +61,15 @@ Available variables are listed below, along with default values
 # dependencies for ansible-bender (like buildah, podman and python3.6 or higher)
 ab_dependencies:
   - buildah
-  - libffi-dev
-  - libssl-dev
   - podman
   - python3
-  - python3-setuptools
   - python3-pip
+  - python3-setuptools
+  - python3-software-properties
   - python3-virtualenv
   - procps
   - runc
   - slirp4netns
-  - software-properties-common
 
 # package state for dependencies: ( present ) | latest 
 ab_dependencies_package_state: present
@@ -73,12 +83,12 @@ ab_python_packges:
 # package state for python packages: ( present ) | latest
 ab_python_packge_state: present
 
-
 # comma separated list of container registries
 ab_container_search_registry: "'docker.io', 'registry.fedoraproject.org', 'quay.io', 'registry.access.redhat.com', 'registry.centos.org'"
 
 # a list of users which can use the rootless mode:
-# (see https://github.com/containers/libpod#Rootless)
+# ab_users:
+#   - your_username
 ab_users: []
 ```
 
