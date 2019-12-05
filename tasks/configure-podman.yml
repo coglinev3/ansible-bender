@@ -46,12 +46,14 @@
 - name: Configure ping group range
   become: "true"
   lineinfile:
-    path: /etc/sysctl.d/60-ping_group_range.conf 
+    path: /etc/sysctl.d/60-ping_group_range.conf
     regexp: '^net.ipv4.ping_group_range'
     line: 'net.ipv4.ping_group_range=0 2000000'
     create: "yes"
     state: present
-  when: not ( ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "16")
+  when: >
+    not ( ansible_distribution == "Ubuntu" and
+    ansible_distribution_major_version == "16")
   notify: sysctl_ping
   tags:
     - config
@@ -64,7 +66,7 @@
     line: 'kernel.unprivileged_userns_clone=1'
     create: "yes"
     state: present
-  when:  ansible_distribution == "Debian"
+  when: ansible_distribution == "Debian"
   notify: sysctl_user_namespace
   tags:
     - config
@@ -72,13 +74,15 @@
 - name: Configure max user namespaces
   become: "true"
   lineinfile:
-    path: /etc/sysctl.d/60-user_namespaces.conf 
+    path: /etc/sysctl.d/60-user_namespaces.conf
     regexp: '^user.max_user_namespaces'
     # line: 'user.max_user_namespaces=2000000'
     line: 'user.max_user_namespaces=1678'
     create: "yes"
     state: present
-  when: not ( ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "16")
+  when: >
+    not ( ansible_distribution == "Ubuntu" and
+    ansible_distribution_major_version == "16")
   notify: sysctl_max_user_namespace
   tags:
     - config

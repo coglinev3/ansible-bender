@@ -21,9 +21,8 @@
         - "repo-{{ ansible_distribution }}.yml"
         - "repo-{{ ansible_os_family }}.yml"
       skip: true
-  
+
 - include_tasks: setup.yml
-#- include_tasks: install-ansible-bender.yml
 
 # Configuration tasks.
 - include_tasks: configure-ansible.yml

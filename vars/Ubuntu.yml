@@ -24,4 +24,9 @@ ab_python_packges:
 
 
 # comma separated list of registries
-ab_container_search_registry: "'docker.io', 'registry.fedoraproject.org', 'quay.io', 'registry.access.redhat.com', 'registry.centos.org'"
+ab_container_search_registry: >-
+  'docker.io',
+  'registry.fedoraproject.org',
+  'quay.io',
+  'registry.access.redhat.com',
+  'registry.centos.org'

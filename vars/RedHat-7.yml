@@ -19,4 +19,10 @@ ab_python_packges:
   - ansible-bender
   - selinux
 
-ab_container_search_registry: "'docker.io', 'registry.access.redhat.com', 'registry.fedoraproject.org', 'quay.io', 'registry.access.redhat.com', 'registry.centos.org'"
+ab_container_search_registry: >-
+  'docker.io',
+  'registry.access.redhat.com',
+  'registry.fedoraproject.org',
+  'quay.io',
+  'registry.access.redhat.com',
+  'registry.centos.org'

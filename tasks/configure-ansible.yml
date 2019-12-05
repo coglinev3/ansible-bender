@@ -15,7 +15,7 @@
 - name: Create Ansible configuration file
   become: "true"
   template:
-    force: no
+    force: "no"
     src: ansible.cfg
     dest: /etc/ansible/ansible.cfg
     owner: root
@@ -27,7 +27,7 @@
 - name: Create Ansible inventory file
   become: "true"
   template:
-    force: no
+    force: "no"
     src: hosts.j2
     dest: /etc/ansible/hosts
     owner: root
@@ -56,4 +56,3 @@
   when: ansible_os_family == 'RedHat'
   tags:
     - config
-
