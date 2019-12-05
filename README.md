@@ -7,22 +7,26 @@ a tool which bends containers using Ansible playbooks and turns them into
 container images.
 
 The supported Linux distribution are:
-* Enterprise Linux 7[^newuidmap], 
-* Enterprise Linux 8[^rootless], 
+* Enterprise Linux 7,
+* Enterprise Linux 8, 
 * Debian 10 (Buster),
 * Ubuntu 18.04 LTS (Bionic Beaver),
 * Ubuntu 19.04 (Disco Dingo) and
 
 
-[^newuidmap]: The rootless mode for Podman requires the newuidmap and newgidmap
-  programs to be installed. Note RHEL 7/CentOS 7 support this only since
-  version 7.7.
+---
+**ΝOTE**
 
-[^rootless]: At the moment RHEL 8/CentOS 8 shipps with an old version of podman
-  (see discussion on [RedHat Community](https://access.redhat.com/discussions/4288731 "RHEL 8.0 - latest version of Podman")).
-  The old version of podman doesn't support [the rootless mode](https://github.com/containers/libpod#Rootless "rootless mode"). That's why you have to use podman with
-  root under Enterprise Linux 8.
+The [rootless mode](https://github.com/containers/libpod/blob/master/README.md#rootless)
+for Podman requires the [newuidmap](https://github.com/containers/libpod/blob/master/troubleshooting.md#9-newuidmap-missing-when-running-rootless-podman-commands)
+programs to be installed. RHEL 7/CentOS 7 support this only since version 7.7.
 
+At the moment RHEL 8/CentOS 8 shipps with an old version of podman
+(see discussion on [RedHat Community](https://access.redhat.com/discussions/4288731 "RHEL 8.0 - latest version of Podman")).
+The old version of podman doesn't support [the rootless mode](https://github.com/containers/libpod#Rootless "rootless mode"). That's why you have to use podman with
+root under Enterprise Linux 8.
+
+---
 
 ## Requirements
 
