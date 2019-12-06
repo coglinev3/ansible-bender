@@ -183,7 +183,7 @@ you that the requested page was not found.
 
 ## Version
 
-Release: 1.0.1
+Release: 1.0.2
 
 ## License
 
