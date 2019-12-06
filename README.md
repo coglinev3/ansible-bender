@@ -29,7 +29,7 @@ The supported Linux distributions for this role are:
 
 The [rootless mode](https://github.com/containers/libpod/blob/master/README.md#rootless)
 for Podman requires the [newuidmap](https://github.com/containers/libpod/blob/master/troubleshooting.md#9-newuidmap-missing-when-running-rootless-podman-commands)
-programs to be installed. Enterprise Linux 7 (RHEL 7 / CentOS 7) supports this
+program to be installed. Enterprise Linux 7 (RHEL 7 / CentOS 7) supports this
 only since version 7.7.
 
 At the moment Enterprise Linux 8 (RHEL 8 / CentOS 8) shipps with an old version
@@ -87,8 +87,6 @@ ab_python_packge_state: present
 ab_container_search_registry: "'docker.io', 'registry.fedoraproject.org', 'quay.io', 'registry.access.redhat.com', 'registry.centos.org'"
 
 # a list of users which can use the rootless mode:
-# ab_users:
-#   - your_username
 ab_users: []
 ```
 
@@ -103,8 +101,77 @@ None.
 # file: roles/ansible-bender/tests/test.yml
 
 - hosts: all
+  vars:
+    ab_users:
+      - your_username
   roles:
     - { role: coglinev3.ansible-bender }
+```
+
+## Example how to use ansible-bender
+
+First you need an Ansible playbook. You can create a template with:
+
+```sh
+ansible-bender init
+```
+
+Now open the *playbook.yml* file, change the *ansible_bender* variable and add
+some tasks. The following simple example playbook creates a nginx container
+based on Alpine Linux.
+
+```yml
+---
+- name: Containerized version of nginx
+  hosts: all
+  vars:
+    a_variable: value
+    # configuration specific for ansible-bender
+    ansible_bender:
+      # ansible-bender needs an image with preinstalled Python 3 to work
+      base_image: python:3-alpine
+      target_image:
+        # command to run by default when invoking the container
+        cmd: "nginx -g \"daemon off;\""
+        name: bender-nginx
+        ports: ['80', '443']
+        working_dir: /var/www/localhost/htdocs
+        labels:
+          build-by: "{{ ansible_user }}"
+      working_container:
+        volumes:
+        # mount this git repo to the working container at /src
+        - "{{ playbook_dir }}:/src:Z"
+  tasks:
+  - name: install dependencies needed to run project bender-nginx
+    apk:
+      name: nginx
+      state: present
+  - name: Ensure directory /run/nginx exists
+    file:
+      path: /run/nginx
+      state: directory
+      mode: '0750'
+      owner: nginx
+      group: nginx
+```
+You can build the example image with:
+
+```sh
+ansible-bender build ./playbook.yml
+```
+
+After the image is successfully created you can start a new container with
+podman
+
+```sh
+podman run -d -p 8080:80 bender-nginx
+```
+
+You can test the new container with:
+
+```sh
+curl http://127.0.0.1:8080/ 
 ```
 
 ## Version
