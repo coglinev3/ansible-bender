@@ -105,7 +105,7 @@ None.
     ab_users:
       - your_username
   roles:
-    - { role: coglinev3.ansible-bender }
+    - { role: coglinev3.ansible_bender }
 ```
 
 ## Example how to use ansible-bender
