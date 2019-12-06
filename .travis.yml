@@ -2,8 +2,16 @@
 sudo: required
 
 env:
-  - distribution: alpine
-    version: "3.10"
+  - distribution: centos
+    version: 7
+  - distribution: centos
+    version: 8
+  - distribution: debian
+    version: buster
+  - distribution: ubuntu
+    version: bionic
+  - distribution: ubuntu
+    version: disco
 
 services:
   - docker
@@ -20,10 +28,29 @@ script:
   - container_id=$(mktemp)
   - >
     echo Create docker container from image ${distribution}-${version}:ansible.
-    && sudo docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/etc/ansible/roles/ansible-common:ro ${distribution}-${version}:ansible > "${container_id}"
+    && sudo docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/etc/ansible/roles/role-under-test:ro ${distribution}-${version}:ansible > "${container_id}"
   - >
     echo Get system facts for container ${distribution}-${version}:ansible.
     && sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible all -m setup
+  - >
+    echo Testing the role’s syntax.
+    && sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role-under-test/travis/test.yml --syntax-check
+  - >
+    echo Perform a dry run.
+    && sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role-under-test/travis/test.yml --check
+  - >
+    echo Run the playbook.
+    && sudo docker exec "$(cat ${container_id})" env DEBIAN_FRONTEND=noninteractive ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role-under-test/travis/test.yml
+  - 'echo Run the role/playbook again, checking to make sure it is idempotent.'
+  - >
+    sudo docker exec "$(cat ${container_id})" env DEBIAN_FRONTEND=noninteractive ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role-under-test/travis/test.yml
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+  - >
+    echo Stop and remove docker container
+    && sudo docker stop "$(cat ${container_id})"
+    && sudo docker rm -f "$(cat ${container_id})"
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

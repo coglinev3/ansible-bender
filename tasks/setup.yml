@@ -1,0 +1,23 @@
+---
+# file: roles/ansible-bender/tasks/setup.yml
+
+- name: "Install dependencies for ansible-bender"
+  become: "true"
+  yum:
+    name: "{{ ab_dependencies }}"
+    state: "{{ ab_dependencies_package_state | default('present')}}"
+  register: ab_dependencies_result
+  when: not ansible_check_mode
+  tags:
+    - install
+
+- name: "Install ansible and ansible-bender"
+  become: "true"
+  pip:
+    name: "{{ ab_python_packges }}"
+    state: "{{ ab_python_packge_state }}"
+    umask: "0022"
+    executable: pip3
+  when: not ansible_check_mode
+  tags:
+    - install

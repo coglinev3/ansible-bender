@@ -1,0 +1,88 @@
+---
+# file: roles/ansible-bender/tasks/configure-podman.yml
+
+- name: Ensure directory /etc/containers exists
+  become: "true"
+  file:
+    path: /etc/containers
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Configure container registry
+  become: "true"
+  template:
+    src: registries.conf.j2
+    dest: /etc/containers/registries.conf
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - config
+
+- name: Configure /etc/subuid for rootless mode
+  become: "true"
+  lineinfile:
+    path: /etc/subuid
+    regexp: '^{{ item }}:900000:65536'
+    line: '{{ item }}:900000:65536'
+    create: "yes"
+  loop: "{{ ab_users|flatten(levels=1) }}"
+  tags:
+    - config
+
+- name: Configure /etc/subgid for rootless mode
+  become: "true"
+  lineinfile:
+    path: /etc/subgid
+    regexp: '^{{ item }}:900000:65536'
+    line: '{{ item }}:900000:65536'
+    create: "yes"
+  loop: "{{ ab_users|flatten(levels=1) }}"
+  tags:
+    - config
+
+- name: Configure ping group range
+  become: "true"
+  lineinfile:
+    path: /etc/sysctl.d/60-ping_group_range.conf
+    regexp: '^net.ipv4.ping_group_range'
+    line: 'net.ipv4.ping_group_range=0 2000000'
+    create: "yes"
+    state: present
+  when: >
+    not ( ansible_distribution == "Ubuntu" and
+    ansible_distribution_major_version == "16")
+  notify: sysctl_ping
+  tags:
+    - config
+
+- name: Enable user namespaces
+  become: "true"
+  lineinfile:
+    path: /etc/sysctl.d/00-local-userns.conf
+    regexp: '^kernel.unprivileged_userns_clone'
+    line: 'kernel.unprivileged_userns_clone=1'
+    create: "yes"
+    state: present
+  when: ansible_distribution == "Debian"
+  notify: sysctl_user_namespace
+  tags:
+    - config
+
+- name: Configure max user namespaces
+  become: "true"
+  lineinfile:
+    path: /etc/sysctl.d/60-user_namespaces.conf
+    regexp: '^user.max_user_namespaces'
+    # line: 'user.max_user_namespaces=2000000'
+    line: 'user.max_user_namespaces=1678'
+    create: "yes"
+    state: present
+  when: >
+    not ( ansible_distribution == "Ubuntu" and
+    ansible_distribution_major_version == "16")
+  notify: sysctl_max_user_namespace
+  tags:
+    - config
