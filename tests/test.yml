@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: local
   remote_user: root
   roles:
-    - { role: coglinev3.ansible-bender }
+    - { role: coglinev3.ansible_bender }
