@@ -4,7 +4,7 @@
 
 Are you tired of building containers with Dockerfiles?
 
-This role installs [ansible-bender](https://github.com/TomasTomecek/ansible-bender),
+This role installs [ansible-bender](https://github.com/ansible-community/ansible-bender),
 a tool which bends containers using Ansible playbooks and turns them into
 container images.
 
