@@ -112,16 +112,16 @@ None.
 
 ### Create an image
 
-If you want to test Ansible-Bender, you first need an Ansible playbook.
+If you want to test ansible-bender, you first need an Ansible playbook.
 You can create a playbook template with:
 
 ```sh
 ansible-bender init
 ```
 
-Now open the `playbook.yml` file, change the *ansible_bender* variable and add
-some tasks. The following simple example playbook creates a nginx container
-based on Alpine Linux.
+Now open the `playbook.yml` file, change the *ansible_bender* dictionary
+variable and add some tasks. The following simple example playbook creates a
+nginx container based on Alpine Linux.
 
 ```yml
 ---
@@ -157,6 +157,7 @@ based on Alpine Linux.
       owner: nginx
       group: nginx
 ```
+
 And now you can build the example image with:
 
 ```sh
@@ -177,6 +178,8 @@ Finally, you can use *curl* to test if the nginx container is working properly
 ```sh
 curl http://127.0.0.1:8080/ 
 ```
+If you get an answer with "404 Not Found", nginx will work fine. Nginx informs
+you that the requested page was not found.
 
 ## Version
 
