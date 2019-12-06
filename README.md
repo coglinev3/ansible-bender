@@ -167,13 +167,13 @@ ansible-bender build ./playbook.yml
 ### Run the container
 
 After the image is successfully created you can start a new container with
-podman
+podman.
 
 ```sh
 podman run -d -p 8080:80 bender-nginx
 ```
 
-Finally, you can use *curl* to test if the nginx container is working properly
+Finally, you can use *curl* to test if the nginx container is working properly.
 
 ```sh
 curl http://127.0.0.1:8080/ 
@@ -183,7 +183,7 @@ you that the requested page was not found.
 
 ## Version
 
-Release: x.y.z
+Release: 1.0.0
 
 ## License
 
