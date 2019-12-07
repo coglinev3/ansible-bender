@@ -1,6 +1,6 @@
 # Ansible Role: ansible-bender
 
-[![Build Status](https://travis-ci.org/coglinev3/ansible-bender.svg?branch=master)](https://travis-ci.org/coglinev3/ansible-bender)
+[![Build Status](https://travis-ci.org/coglinev3/ansible-bender.svg?branch=master)](https://travis-ci.org/coglinev3/ansible-bender) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://raw.githubusercontent.com/coglinev3/ansible-bender/master/LICENSE)
 
 Are you tired of building containers with Dockerfiles?
 
