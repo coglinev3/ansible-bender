@@ -1,6 +1,12 @@
 ---
 # file: roles/ansible-bender/tasks/repo-Debian.yml
 
+- name: Install GNU privacy guard
+  become: "true"
+  apt:
+    name: gnupg2
+    state: present
+
 - name: Install repository for buildah and podman
   become: "true"
   apt_repository:
