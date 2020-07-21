@@ -19,8 +19,8 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - bionic
-        - "disco dingo"
-
+        - eoan
+        - focal
   galaxy_tags:
     - ansible
     - bender
