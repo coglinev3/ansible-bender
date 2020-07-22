@@ -19,7 +19,6 @@ ab_dependencies:
 ab_dependencies_package_state: present
 
 ab_python_packges:
-#  - wheel
   - ansible
   - ansible-bender
 
