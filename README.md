@@ -178,6 +178,7 @@ Finally, you can use *curl* to test if the nginx container is working properly.
 ```sh
 curl http://127.0.0.1:8080/ 
 ```
+
 If you get an answer with "404 Not Found", nginx will work fine. Nginx informs
 you that the requested page was not found.
 

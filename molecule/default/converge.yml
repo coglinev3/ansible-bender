@@ -1,0 +1,27 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include coglinev3.ansible_bender"
+      include_role:
+        name: "coglinev3.ansible_bender"
+
+    - name: "Install fuse-overlayfs"
+      package:
+        name: fuse-overlayfs
+        state: present
+    - name: "Get podman informations"
+      command: >
+        podman
+        --storage-driver overlay
+        --storage-opt
+        "overlay.mount_program=/usr/bin/fuse-overlayfs"
+        info
+      register: podman_info
+    - debug:
+        var: podman_info
+    - name: "Get ansible-bender version"
+      command: ansible-bender --version
+      register: bender_version
+    - debug:
+        var: bender_version

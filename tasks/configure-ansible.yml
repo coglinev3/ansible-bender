@@ -1,5 +1,5 @@
 ---
-# file: roles/ansible-bender/tasks/configure_ansible.yml
+# file: roles/ansible_bender/tasks/configure-ansible.yml
 
 - name: Ensure directory /etc/ansible exists
   become: "true"
