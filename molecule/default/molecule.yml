@@ -16,7 +16,7 @@ verifier:
   name: ansible
 lint: |
   set -e
-#  yamllint .
+  yamllint .
 #  ansible-lint tests/test.yml
 scenario:
   name: default
