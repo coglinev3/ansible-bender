@@ -11,11 +11,13 @@
         podman
         --storage-driver=vfs
         info
+      changed_when: false
       register: podman_info
     - debug:
         var: podman_info
     - name: "Get ansible-bender version"
       command: ansible-bender --version
+      changed_when: false
       register: bender_version
     - debug:
         var: bender_version
