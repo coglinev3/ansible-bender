@@ -6,16 +6,10 @@
       include_role:
         name: "coglinev3.ansible_bender"
 
-    - name: "Install fuse-overlayfs"
-      package:
-        name: fuse-overlayfs
-        state: present
     - name: "Get podman informations"
       command: >
         podman
-        --storage-driver overlay
-        --storage-opt
-        "overlay.mount_program=/usr/bin/fuse-overlayfs"
+        --storage-driver=vfs
         info
       register: podman_info
     - debug:
