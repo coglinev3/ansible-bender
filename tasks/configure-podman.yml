@@ -28,6 +28,9 @@
     regexp: '^{{ item }}:900000:65536'
     line: '{{ item }}:900000:65536'
     create: "yes"
+    owner: root
+    group: root
+    mode: 0644
   loop: "{{ ab_users|flatten(levels=1) }}"
   tags:
     - config
@@ -39,6 +42,9 @@
     regexp: '^{{ item }}:900000:65536'
     line: '{{ item }}:900000:65536'
     create: "yes"
+    owner: root
+    group: root
+    mode: 0644
   loop: "{{ ab_users|flatten(levels=1) }}"
   tags:
     - config
@@ -49,8 +55,11 @@
     path: /etc/sysctl.d/60-ping_group_range.conf
     regexp: '^net.ipv4.ping_group_range'
     line: 'net.ipv4.ping_group_range=0 2000000'
-    create: "yes"
     state: present
+    create: "yes"
+    owner: root
+    group: root
+    mode: 0644
   when: >
     not ( ansible_distribution == "Ubuntu" and
     ansible_distribution_major_version == "16")
@@ -64,8 +73,11 @@
     path: /etc/sysctl.d/00-local-userns.conf
     regexp: '^kernel.unprivileged_userns_clone'
     line: 'kernel.unprivileged_userns_clone=1'
-    create: "yes"
     state: present
+    create: "yes"
+    owner: root
+    group: root
+    mode: 0644
   when: ansible_distribution == "Debian"
   notify: sysctl_user_namespace
   tags:
@@ -78,8 +90,11 @@
     regexp: '^user.max_user_namespaces'
     # line: 'user.max_user_namespaces=2000000'
     line: 'user.max_user_namespaces=1678'
-    create: "yes"
     state: present
+    create: "yes"
+    owner: root
+    group: root
+    mode: 0644
   when: >
     not ( ansible_distribution == "Ubuntu" and
     ansible_distribution_major_version == "16")
