@@ -1,8 +1,9 @@
 ---
-# file: roles/ansible-bender/meta/main.yml
+# file: roles/ansible_bender/meta/main.yml
 
 galaxy_info:
   author: Cogline.v3
+  role_name: ansible_bender
   description: >-
     Installs ansible-bender, a tool which bends containers using Ansible
     playbooks and turns them into container images.

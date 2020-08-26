@@ -1,6 +1,6 @@
-# Ansible Role: ansible-bender
+# Ansible Role: ansible_bender
 
-[![Build Status](https://travis-ci.org/coglinev3/ansible-bender.svg?branch=master)](https://travis-ci.org/coglinev3/ansible-bender) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/coglinev3/ansible-bender) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://raw.githubusercontent.com/coglinev3/ansible-bender/master/LICENSE)
+[![Build Status](https://travis-ci.com/coglinev3/ansible-role-ansible_bender.svg?branch=master)](https://travis-ci.com/coglinev3/ansible-role-ansible_bender) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/coglinev3/ansible-role-ansible_bender) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://raw.githubusercontent.com/coglinev3/ansible-role-ansible_bender/master/LICENSE)
 
 Are you tired of building containers with Dockerfiles?
 
