@@ -4,21 +4,21 @@
 # ansible-bender needs python3.6 or higher
 ab_dependencies:
   - buildah
+  - containers-common
   - podman
-  - python3
-  - python3-setuptools
-  - python-setuptools
-  - python3-pip
-  - python3-virtualenv
   - procps
+  - python3
+  - python3-pip
+  - python3-setuptools  # this works only iy python3 is used (see inventory.ini)
+  - python3-software-properties
+  - python3-virtualenv
+  - python3-wheel
   - runc
   - slirp4netns
-  - python3-software-properties
 
 ab_dependencies_package_state: present
 
 ab_python_packges:
-  - wheel
   - ansible
   - ansible-bender
 
@@ -32,6 +32,8 @@ ab_container_search_registry: >-
   'quay.io',
   'registry.access.redhat.com',
   'registry.centos.org'
+
+ab_repo: "ppa:projectatomic/ppa"
 
 # a list user which can use the rootless mode:
 ab_users: []

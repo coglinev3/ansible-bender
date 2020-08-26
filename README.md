@@ -1,6 +1,6 @@
 # Ansible Role: ansible-bender
 
-[![Build Status](https://travis-ci.org/coglinev3/ansible-bender.svg?branch=master)](https://travis-ci.org/coglinev3/ansible-bender)
+[![Build Status](https://travis-ci.org/coglinev3/ansible-bender.svg?branch=master)](https://travis-ci.org/coglinev3/ansible-bender) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/coglinev3/ansible-bender) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://raw.githubusercontent.com/coglinev3/ansible-bender/master/LICENSE)
 
 Are you tired of building containers with Dockerfiles?
 
@@ -31,11 +31,6 @@ The [rootless mode](https://github.com/containers/libpod/blob/master/README.md#r
 for Podman requires the [newuidmap](https://github.com/containers/libpod/blob/master/troubleshooting.md#9-newuidmap-missing-when-running-rootless-podman-commands)
 program to be installed. Enterprise Linux 7 (RHEL 7 / CentOS 7) supports this
 only since version 7.7.
-
-At the moment Enterprise Linux 8 (RHEL 8 / CentOS 8) shipps with an old version
-of podman (see discussion on [RedHat Community](https://access.redhat.com/discussions/4288731 "RHEL 8.0 - latest version of Podman")).
-The old version of podman doesn't support the [rootless mode](https://github.com/containers/libpod#Rootless "rootless mode").
-That's why you have to use podman with *root* under Enterprise Linux 8.
 
 ---
 
@@ -178,12 +173,13 @@ Finally, you can use *curl* to test if the nginx container is working properly.
 ```sh
 curl http://127.0.0.1:8080/ 
 ```
+
 If you get an answer with "404 Not Found", nginx will work fine. Nginx informs
 you that the requested page was not found.
 
 ## Version
 
-Release: 1.0.2
+Release: 1.1.0
 
 ## License
 
@@ -191,4 +187,4 @@ BSD
 
 ## Author Information
 
-This Ansible Role was created in 2019, by Cogline.v3.
+This Ansible Role was created in 2020, by Cogline.v3.

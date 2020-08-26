@@ -1,0 +1,4 @@
+---
+# file: roles/ansible-bender/vars/Ubuntu-20.yml
+
+ab_repo_release: disco

@@ -1,5 +1,5 @@
 ---
-# file: roles/ansible-bender/tasks/configure_ansible.yml
+# file: roles/ansible_bender/tasks/configure-ansible.yml
 
 - name: Ensure directory /etc/ansible exists
   become: "true"
@@ -43,6 +43,9 @@
     regexp: '^export ANSIBLE_FORCE_COLOR'
     line: 'export ANSIBLE_FORCE_COLOR=1'
     create: "yes"
+    mode: 0644
+    owner: root
+    group: root
   tags:
     - config
 
@@ -53,6 +56,9 @@
     regexp: '^PATH'
     line: 'PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin'
     create: "yes"
+    mode: 0644
+    owner: root
+    group: root
   when: ansible_os_family == 'RedHat'
   tags:
     - config

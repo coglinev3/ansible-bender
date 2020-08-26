@@ -1,56 +1,53 @@
 ---
-sudo: required
+dist: bionic
+addons:
+  apt:
+    packages:
+      - docker-ce
+      - libssl-dev
+      - libffi-dev
+      - python3
+      - python3-pip
+      - python3-setuptools
+      - python3-software-properties
+      - python3-wheel
 
-env:
-  - distribution: centos
-    version: 7
-  - distribution: centos
-    version: 8
-  - distribution: debian
-    version: buster
-  - distribution: ubuntu
-    version: bionic
-  - distribution: ubuntu
-    version: disco
+language: minimal
 
 services:
   - docker
 
+env:
+  global:
+    - GIT_NAME: ansible-role-ansible_bender
+    - ROLE_NAME: ansible_bender
+    - AUTHOR_NAME: coglinev3
+    - MOLECULE_DISTRO: coglinev3/ansible
+    - PATH: /home/travis/.local/bin:${PATH}
+  matrix:
+    - MOLECULE_DISTRO_VERSION: centos-7
+    - MOLECULE_DISTRO_VERSION: centos-8
+    - MOLECULE_DISTRO_VERSION: debian-10
+    - MOLECULE_DISTRO_VERSION: ubuntu-18.04
+    - MOLECULE_DISTRO_VERSION: ubuntu-20.04
+
 before_install:
-  - >
-    echo Get docker image ${distribution}:${version}.
-    && sudo docker pull ${distribution}:${version}
-  - >
-    echo Build docker image ${distribution}:${version} for use with Ansible.
-    && sudo docker build --no-cache --rm --file=travis/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible travis
+  # Upgrade Docker to work with docker-py.
+  - curl https://gist.githubusercontent.com/geerlingguy/ce883ad4aec6a5f1187ef93bd338511e/raw/36612d28981d92863f839c5aefe5b7dd7193d6c6/travis-ci-docker-upgrade.sh | sudo bash
+
+install:
+  # Install test dependencies.
+  - pip3 install ansible molecule yamllint ansible-lint docker
+
+before_script:
+  # Use actual Ansible Galaxy role name for the project directory.
+  - cd ../
+  - mv ${GIT_NAME} ${AUTHOR_NAME}.${ROLE_NAME}
+  - cd ${AUTHOR_NAME}.${ROLE_NAME}
 
 script:
-  - container_id=$(mktemp)
-  - >
-    echo Create docker container from image ${distribution}-${version}:ansible.
-    && sudo docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/etc/ansible/roles/role-under-test:ro ${distribution}-${version}:ansible > "${container_id}"
-  - >
-    echo Get system facts for container ${distribution}-${version}:ansible.
-    && sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible all -m setup
-  - >
-    echo Testing the role’s syntax.
-    && sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role-under-test/travis/test.yml --syntax-check
-  - >
-    echo Perform a dry run.
-    && sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role-under-test/travis/test.yml --check
-  - >
-    echo Run the playbook.
-    && sudo docker exec "$(cat ${container_id})" env DEBIAN_FRONTEND=noninteractive ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role-under-test/travis/test.yml
-  - 'echo Run the role/playbook again, checking to make sure it is idempotent.'
-  - >
-    sudo docker exec "$(cat ${container_id})" env DEBIAN_FRONTEND=noninteractive ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role-under-test/travis/test.yml
-    | grep -q 'changed=0.*failed=0'
-    && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
-  - >
-    echo Stop and remove docker container
-    && sudo docker stop "$(cat ${container_id})"
-    && sudo docker rm -f "$(cat ${container_id})"
+  # Run tests.
+  - molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

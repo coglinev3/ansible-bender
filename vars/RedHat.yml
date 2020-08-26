@@ -1,31 +1,25 @@
 ---
-# file: roles/ansible-bender/vars/Ubuntu.yml
+# file: roles/ansible-bender/vars/RedHat.yml
 
-# ansible-bender needs python3.6 or higher
 ab_dependencies:
   - buildah
-  - libffi-dev
-  - libssl-dev
+  - containers-common
   - podman
   - python3
-  - python3-pip
   - python3-setuptools
-  - python3-software-properties
-  - python3-virtualenv
-  - procps
-  - runc
+  - python3-pip
+  - python3-wheel
+  - shadow-utils
   - slirp4netns
-#  - software-properties-common
 
 ab_python_packges:
-  - wheel
   - ansible
   - ansible-bender
+  - selinux
 
-
-# comma separated list of registries
 ab_container_search_registry: >-
   'docker.io',
+  'registry.access.redhat.com',
   'registry.fedoraproject.org',
   'quay.io',
   'registry.access.redhat.com',
