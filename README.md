@@ -32,11 +32,6 @@ for Podman requires the [newuidmap](https://github.com/containers/libpod/blob/ma
 program to be installed. Enterprise Linux 7 (RHEL 7 / CentOS 7) supports this
 only since version 7.7.
 
-At the moment Enterprise Linux 8 (RHEL 8 / CentOS 8) shipps with an old version
-of podman (see discussion on [RedHat Community](https://access.redhat.com/discussions/4288731 "RHEL 8.0 - latest version of Podman")).
-The old version of podman doesn't support the [rootless mode](https://github.com/containers/libpod#Rootless "rootless mode").
-That's why you have to use podman with *root* under Enterprise Linux 8.
-
 ---
 
 
@@ -184,7 +179,7 @@ you that the requested page was not found.
 
 ## Version
 
-Release: 1.0.2
+Release: 1.1.0
 
 ## License
 
@@ -192,4 +187,4 @@ BSD
 
 ## Author Information
 
-This Ansible Role was created in 2019, by Cogline.v3.
+This Ansible Role was created in 2020, by Cogline.v3.
