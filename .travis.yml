@@ -1,9 +1,8 @@
 ---
-dist: bionic
+dist: focal
 addons:
   apt:
     packages:
-      - docker-ce
       - libssl-dev
       - libffi-dev
       - python3
@@ -19,9 +18,7 @@ services:
 
 env:
   global:
-    - GIT_NAME: ansible-role-ansible_bender
     - ROLE_NAME: ansible_bender
-    - AUTHOR_NAME: coglinev3
     - MOLECULE_DISTRO: coglinev3/ansible
     - PATH: /home/travis/.local/bin:${PATH}
   matrix:
@@ -31,19 +28,15 @@ env:
     - MOLECULE_DISTRO_VERSION: ubuntu-18.04
     - MOLECULE_DISTRO_VERSION: ubuntu-20.04
 
-before_install:
-  # Upgrade Docker to work with docker-py.
-  - curl https://gist.githubusercontent.com/geerlingguy/ce883ad4aec6a5f1187ef93bd338511e/raw/36612d28981d92863f839c5aefe5b7dd7193d6c6/travis-ci-docker-upgrade.sh | sudo bash
-
 install:
   # Install test dependencies.
-  - pip3 install ansible molecule yamllint ansible-lint docker
+  - pip3 install -U jinja2 requests ansible molecule yamllint ansible-lint docker
 
 before_script:
   # Use actual Ansible Galaxy role name for the project directory.
   - cd ../
-  - mv ${GIT_NAME} ${AUTHOR_NAME}.${ROLE_NAME}
-  - cd ${AUTHOR_NAME}.${ROLE_NAME}
+  - mv $(basename $TRAVIS_REPO_SLUG) $(dirname $TRAVIS_REPO_SLUG).${ROLE_NAME}
+  - cd $(dirname $TRAVIS_REPO_SLUG).${ROLE_NAME}
 
 script:
   # Run tests.
