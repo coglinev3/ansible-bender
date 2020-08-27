@@ -13,6 +13,7 @@
     repo: "{{ ab_repo }}"
     codename: "{{ ab_repo_release | default(ansible_distribution_release) }}"
     update_cache: "yes"
+    mode: 0644
   register: repo_result
   tags:
     - install
