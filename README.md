@@ -179,7 +179,7 @@ you that the requested page was not found.
 
 ## Version
 
-Release: 1.1.1
+Release: 1.1.2
 
 ## License
 
