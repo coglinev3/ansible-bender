@@ -4,9 +4,7 @@
 
 Are you tired of building containers with Dockerfiles?
 
-This role installs [ansible-bender](https://github.com/ansible-community/ansible-bender),
-a tool which bends containers using Ansible playbooks and turns them into
-container images.
+This role installs [ansible-bender](https://github.com/ansible-community/ansible-bender), a tool which bends containers using Ansible playbooks and turns them into container images.
 
 With ansible-bender, you no longer have to build and configure containers
 differently than you do traditional virtual machines or bare-metal systems.
@@ -27,10 +25,7 @@ The supported Linux distributions for this role are:
 ---
 **ΝOTE**
 
-The [rootless mode](https://github.com/containers/libpod/blob/master/README.md#rootless)
-for Podman requires the [newuidmap](https://github.com/containers/libpod/blob/master/troubleshooting.md#9-newuidmap-missing-when-running-rootless-podman-commands)
-program to be installed. Enterprise Linux 7 (RHEL 7 / CentOS 7) supports this
-only since version 7.7.
+The [rootless mode](https://github.com/containers/libpod/blob/master/README.md#rootless) for Podman requires the [newuidmap](https://github.com/containers/libpod/blob/master/troubleshooting.md#9-newuidmap-missing-when-running-rootless-podman-commands) program to be installed. Enterprise Linux 7 (RHEL 7 / CentOS 7) supports this only since version 7.7.
 
 ---
 
@@ -44,12 +39,11 @@ Ansible-bender requires a few binaries to be present on your host system:
 * Python 3.6 or later (python 3.5 or earlier are not supported and known not to be working)
 * Ansible (***Ansible needs to be built against python 3***)
 
-These requirements will be installed with this role.
+All requirements are installed with this role.
 
 ## Role Variables
 
-Available variables are listed below, along with default values
-(see defaults/main.yml):
+Available variables are listed below, along with default values (see defaults/main.yml):
 
 ```yml
 
@@ -107,16 +101,13 @@ None.
 
 ### Create an image
 
-If you want to test ansible-bender, you first need an Ansible playbook.
-You can create a playbook template with:
+If you want to test ansible-bender, you first need an Ansible playbook. You can create a playbook template with:
 
 ```sh
 ansible-bender init
 ```
 
-Now open the `playbook.yml` file, change the *ansible_bender* dictionary
-variable and add some tasks. The following simple example playbook creates a
-nginx container based on Alpine Linux.
+Now open the `playbook.yml` file, change the *ansible_bender* dictionary variable and add some tasks. The following simple example playbook creates a nginx container based on Alpine Linux.
 
 ```yml
 ---
@@ -174,12 +165,11 @@ Finally, you can use *curl* to test if the nginx container is working properly.
 curl http://127.0.0.1:8080/ 
 ```
 
-If you get an answer with "404 Not Found", nginx will work fine. Nginx informs
-you that the requested page was not found.
+If you get an answer with "404 Not Found", nginx will work fine. Nginx informs you that the requested page was not found.
 
 ## Version
 
-Release: 1.1.2
+Release: 1.1.3
 
 ## License
 
