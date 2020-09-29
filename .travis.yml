@@ -26,6 +26,8 @@ env:
     - MOLECULE_DISTRO_VERSION: centos-8
     - MOLECULE_DISTRO_VERSION: debian-10
       MOLECULE_DISTRO_CMD: /bin/systemd
+    - MOLECULE_DISTRO_VERSION: fedora-31
+    - MOLECULE_DISTRO_VERSION: fedora-32
     - MOLECULE_DISTRO_VERSION: ubuntu-18.04
       MOLECULE_DISTRO_CMD: /bin/systemd
     - MOLECULE_DISTRO_VERSION: ubuntu-20.04

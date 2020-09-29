@@ -17,6 +17,10 @@ galaxy_info:
     - name: Debian
       versions:
         - buster
+    - name: Fedora
+      versions:
+        - 31
+        - 32
     - name: Ubuntu
       versions:
         - bionic
