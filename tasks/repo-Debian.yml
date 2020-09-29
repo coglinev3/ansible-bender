@@ -6,6 +6,7 @@
   apt:
     name: gnupg2
     state: present
+    update_cache: yes
 
 - name: Install repository for buildah and podman
   become: "true"
