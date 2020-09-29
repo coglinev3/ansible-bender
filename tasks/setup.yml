@@ -3,7 +3,7 @@
 
 - name: "Install dependencies for ansible-bender"
   become: "true"
-  yum:
+  package:
     name: "{{ ab_dependencies }}"
     state: "{{ ab_dependencies_package_state | default('present') }}"
   register: ab_dependencies_result
