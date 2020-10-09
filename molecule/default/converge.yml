@@ -1,31 +1,12 @@
 ---
+# file: roles/ansible_bender/molecule/default//converge.yml
+
 - name: Converge
   hosts: all
+  vars:
+    ab_users:
+      - ansible
   tasks:
     - name: "Include coglinev3.ansible_bender"
       include_role:
         name: "coglinev3.ansible_bender"
-
-    - name: "Get podman version"
-      command: podman --version
-      changed_when: false
-      register: podman_version
-    - debug:
-        msg: "{{ podman_version.stdout }}"
-
-    - name: "Get podman informations"
-      command: >
-        podman
-        --storage-driver=vfs
-        info
-      changed_when: false
-      register: podman_info
-    - debug:
-        var: podman_info
-
-    - name: "Get ansible-bender version"
-      command: ansible-bender --version
-      changed_when: false
-      register: bender_version
-    - debug:
-        msg: "ansible-bender version {{ bender_version.stdout }}"

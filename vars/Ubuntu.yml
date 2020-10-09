@@ -1,0 +1,4 @@
+---
+# file: roles/ansible_bender/vars/Ubuntu.yml
+
+ab_repo_prefix: "x"

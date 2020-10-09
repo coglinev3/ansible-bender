@@ -1,5 +1,5 @@
 ---
-# file: roles/ansible-bender/tasks/repo-Debian.yml
+# file: roles/ansible_bender/tasks/repo-Debian.yml
 
 - name: Install GNU privacy guard
   become: "true"
@@ -10,20 +10,21 @@
 
 - name: Install repository for buildah and podman
   become: "true"
-  apt_repository:
-    repo: "{{ ab_repo }}"
-    codename: "{{ ab_repo_release | default(ansible_distribution_release) }}"
-    update_cache: "yes"
+  template:
+    force: "no"
+    src: kubic-apt-repo.j2
+    dest: /etc/apt/sources.list.d/kubic-project.list
+    owner: root
+    group: root
     mode: 0644
-  register: repo_result
-  tags:
-    - install
 
-- name: "Add apt key for keyserver.ubuntu.com"
+- name: Add Apt key
   become: "true"
   apt_key:
-    keyserver: "keyserver.ubuntu.com:80"
-    id: 8BECF1637AD8C79D
-  when: not ansible_distribution == "Ubuntu"
-  tags:
-    - install
+    url: "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ ab_repo_prefix }}{{ ansible_distribution }}_{{ ansible_distribution_version }}/Release.key"
+    state: present
+
+- name: Update Apt cache
+  become: "true"
+  apt:
+    update_cache: yes

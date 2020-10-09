@@ -1,9 +1,51 @@
 ---
-# This is an example playbook to execute Ansible tests.
+# file: roles/ansible_bender/molecule/default/verify.yml
 
 - name: Verify
   hosts: all
   tasks:
-  - name: Example assertion
-    assert:
-      that: true
+    - name: "Get podman version"
+      command: podman --version
+      register: podman_version
+      changed_when: 'podman_version.stdout is defined and "." in podman_version.stdout'
+      failed_when: false
+
+    - name: Check podman version
+      assert:
+        that: podman_version.changed
+        fail_msg: "podman is not installed properly" 
+        success_msg: "{{ podman_version.stdout }} installed correctly"
+
+    - name: "Get buildah version"
+      command: buildah --version
+      register: buildah_version
+      changed_when: 'buildah_version.stdout is defined and "." in buildah_version.stdout'
+      failed_when: false
+
+    - name: Check buildah version
+      assert:
+        that: buildah_version.changed
+        fail_msg: "buildah is not installed properly" 
+        success_msg: "{{ buildah_version.stdout }} installed correctly"
+
+#    - name: "Get podman informations"
+#      command: >
+#        podman
+#        --storage-driver=vfs
+#        info
+#      changed_when: false
+#      register: podman_info
+#    - debug:
+#        var: podman_info
+
+    - name: "Get ansible-bender version"
+      command: ansible-bender --version
+      changed_when: 'bender_version.stdout is defined and "0." in bender_version.stdout'
+      failed_when: false
+      register: bender_version
+
+    - name: Check ansible-bender version
+      assert:
+        that: bender_version.changed
+        fail_msg: "ansible-bender is not installed properly" 
+        success_msg: "ansible-bender version {{ bender_version.stdout }} installed correctly"

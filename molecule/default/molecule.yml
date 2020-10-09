@@ -1,4 +1,6 @@
 ---
+# file: roles/ansible_bender/molecule/default/molecule.yml
+
 dependency:
   name: galaxy
 driver:
@@ -13,6 +15,11 @@ platforms:
     command: ${MOLECULE_DISTRO_CMD:-/usr/sbin/init}
 provisioner:
   name: ansible
+  inventory:
+    host_vars:
+      # settings for the platform instance named 'instance'
+      instance:
+        ansible_user: ansible
 verifier:
   name: ansible
 lint: |

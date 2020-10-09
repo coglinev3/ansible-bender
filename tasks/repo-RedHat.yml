@@ -1,0 +1,41 @@
+---
+# file: roles/ansible_bender/tasks/repo-RedHat.yml
+
+- block:
+  - block:
+    - name: Disable container-tools
+      become: "true"
+      command: dnf -y module disable container-tools
+      changed_when: false
+      args:
+        warn: no
+
+    - name: "Install dnf-command(copr)"
+      become: "true"
+      dnf:
+        name: "dnf-command(copr)"
+        state: present
+
+    - name: "Enable rhcontainerbot/container-selinux"
+      become: "true"
+      command: dnf -y copr enable rhcontainerbot/container-selinux
+      changed_when: false
+      args:
+        warn: no
+    when: ansible_distribution_major_version == "8"
+
+  - name: Install repository for buildah and podman
+    become: "true"
+    template:
+      force: "no"
+      src: kubic-yum-repo.j2
+      dest: "/etc/yum.repos.d/devel:kubic:libcontainers:stable.repo"
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: Update repository cache
+    become: "yes"
+    yum:
+      update_cache: yes
+  when: not ansible_distribution == "Fedora"

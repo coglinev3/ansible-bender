@@ -1,5 +1,5 @@
 ---
-# file: roles/ansible-bender/vars/RedHat.yml
+# file: roles/ansible_bender/vars/RedHat.yml
 
 ab_dependencies:
   - buildah
@@ -16,11 +16,3 @@ ab_python_packges:
   - ansible
   - ansible-bender
   - selinux
-
-ab_container_search_registry: >-
-  'docker.io',
-  'registry.access.redhat.com',
-  'registry.fedoraproject.org',
-  'quay.io',
-  'registry.access.redhat.com',
-  'registry.centos.org'

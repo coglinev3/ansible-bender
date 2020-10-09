@@ -15,6 +15,7 @@ ab_dependencies:
   - python3-wheel
   - runc
   - slirp4netns
+  - tzdata
 
 ab_dependencies_package_state: present
 
@@ -24,7 +25,6 @@ ab_python_packges:
 
 ab_python_packge_state: present
 
-
 # comma separated list of registries
 ab_container_search_registry: >-
   'docker.io',
@@ -33,7 +33,7 @@ ab_container_search_registry: >-
   'registry.access.redhat.com',
   'registry.centos.org'
 
-ab_repo: "ppa:projectatomic/ppa"
+ab_repo_prefix: ""
 
 # a list user which can use the rootless mode:
 ab_users: []
