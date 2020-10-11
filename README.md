@@ -20,6 +20,7 @@ The supported Linux distributions for this role are:
 * Debian 10 (Buster),
 * Fedora 31,
 * Fedora 32,
+* Linux Mint 20 (Ulyana),
 * Ubuntu 18.04 LTS (Bionic Beaver),
 * Ubuntu 20.04 LTS (Focal Fossa).
 

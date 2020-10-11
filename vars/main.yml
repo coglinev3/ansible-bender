@@ -1,0 +1,30 @@
+---
+# file: roles/ansible_bender/vars/main.yml
+
+# Linux Mint Release Matrix
+linux_mint_releases:
+  ulyana:
+    version: 20
+    ubuntu_distribution_release: focal
+    ubuntu_distribution_version: 20.04
+    ubuntu_distribution_major_version: 20
+  tricia:
+    version: 19.3
+    ubuntu_distribution_release: bionic
+    ubuntu_distribution_version: 18.04
+    ubuntu_distribution_major_version: 18
+  tina:
+    version: 19.2
+    ubuntu_distribution_release: bionic
+    ubuntu_distribution_version: 18.04
+    ubuntu_distribution_major_version: 18
+  tessa:
+    version: 19.1
+    ubuntu_distribution_release: bionic
+    ubuntu_distribution_version: 18.04
+    ubuntu_distribution_major_version: 18
+  tara:
+    version: 19
+    ubuntu_distribution_release: bionic
+    ubuntu_distribution_version: 18.04
+    ubuntu_distribution_major_version: 18
