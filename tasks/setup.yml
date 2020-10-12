@@ -19,5 +19,7 @@
     umask: "0022"
     executable: pip3
   when: not ansible_check_mode
+  environment:
+    TMPDIR: /var/tmp
   tags:
     - install
