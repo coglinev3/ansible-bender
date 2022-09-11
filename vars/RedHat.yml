@@ -3,16 +3,9 @@
 
 ab_dependencies:
   - buildah
-  - containers-common
   - podman
-  - python3
-  - python3-setuptools
-  - python3-pip
-  - python3-wheel
-  - shadow-utils
-  - slirp4netns
 
 ab_python_packges:
-  - ansible
+#  - ansible
   - ansible-bender
   - selinux

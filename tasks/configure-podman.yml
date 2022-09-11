@@ -31,7 +31,7 @@
     owner: root
     group: root
     mode: 0644
-  loop: "{{ ab_users|flatten(levels=1) }}"
+  loop: "{{ ab_users | flatten(levels=1) }}"
   tags:
     - config
 
@@ -45,7 +45,7 @@
     owner: root
     group: root
     mode: 0644
-  loop: "{{ ab_users|flatten(levels=1) }}"
+  loop: "{{ ab_users | flatten(levels=1) }}"
   tags:
     - config
 
@@ -63,7 +63,7 @@
   when: >
     not ( ansible_distribution == "Ubuntu" and
     ansible_distribution_major_version == "16")
-  notify: sysctl_ping
+  notify: Sysctl_ping
   tags:
     - config
 
@@ -79,7 +79,7 @@
     group: root
     mode: 0644
   when: ansible_distribution == "Debian"
-  notify: sysctl_user_namespace
+  notify: Sysctl_user_namespace
   tags:
     - config
 
@@ -98,6 +98,6 @@
   when: >
     not ( ansible_distribution == "Ubuntu" and
     ansible_distribution_major_version == "16")
-  notify: sysctl_max_user_namespace
+  notify: Sysctl_max_user_namespace
   tags:
     - config

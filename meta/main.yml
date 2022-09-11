@@ -4,6 +4,7 @@
 galaxy_info:
   author: Cogline.v3
   role_name: ansible_bender
+  namespace: coglinev3
   description: >-
     Installs ansible-bender, a tool which bends containers using Ansible
     playbooks and turns them into container images.

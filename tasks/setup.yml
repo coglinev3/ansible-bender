@@ -11,6 +11,13 @@
   tags:
     - install
 
+# - name: "Upgrade pip to the latest version "
+#   become: "true"
+#   ansible.builtin.pip:
+#     name: pip
+#     state: forcereinstall
+#     executable: pip3
+
 - name: "Install ansible and ansible-bender"
   become: "true"
   pip:

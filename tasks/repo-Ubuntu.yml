@@ -1,5 +1,5 @@
 ---
-# file: roles/ansible_bender/tasks/repo-Debian.yml
+# file: roles/ansible_bender/tasks/repo-Ubuntu.yml
 
 - name: Install GNU privacy guard
   become: "true"
