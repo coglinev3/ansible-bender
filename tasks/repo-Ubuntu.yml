@@ -1,43 +1,48 @@
 ---
 # file: roles/ansible_bender/tasks/repo-Ubuntu.yml
 
-- name: Install GNU privacy guard
-  become: "true"
-  apt:
-    name: gnupg2
-    state: present
-    update_cache: yes
+- name: Setup extra repository for buildah and podman
+  block:
+  - name: Install GNU privacy guard
+    become: "true"
+    apt:
+      name: gnupg2
+      state: present
+      update_cache: yes
+  
+  - name: "Debian: Set release for apt repository"
+    set_fact:
+      ab_distribution: "{{ ansible_distribution }}"
+      ab_distribution_version: "{{ ansible_distribution_version }}"
+    when: ansible_distribution != "Linux Mint"
+  
+  - name: "Linux Mint: Set release and prefix for apt repository"
+    set_fact:
+      ab_distribution: Ubuntu
+      ab_distribution_version: "{{ linux_mint_releases[ansible_distribution_release]['ubuntu_distribution_version'] }}"
+      ab_repo_prefix: "x"
+    when: ansible_distribution == "Linux Mint"
+  
+  - name: Install repository for buildah and podman
+    become: "true"
+    template:
+      force: "no"
+      src: kubic-apt-repo.j2
+      dest: /etc/apt/sources.list.d/kubic-project.list
+      owner: root
+      group: root
+      mode: 0644
+  
+  - name: Add Apt key
+    become: "true"
+    apt_key:
+      url: "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ ab_repo_prefix }}{{ ab_distribution }}_{{ ab_distribution_version }}/Release.key"
+      state: present
+  
+  - name: Update Apt cache
+    become: "true"
+    apt:
+      update_cache: yes
 
-- name: "Debian: Set release for apt repository"
-  set_fact:
-    ab_distribution: "{{ ansible_distribution }}"
-    ab_distribution_version: "{{ ansible_distribution_version }}"
-  when: ansible_distribution != "Linux Mint"
-
-- name: "Linux Mint: Set release and prefix for apt repository"
-  set_fact:
-    ab_distribution: Ubuntu
-    ab_distribution_version: "{{ linux_mint_releases[ansible_distribution_release]['ubuntu_distribution_version'] }}"
-    ab_repo_prefix: "x"
-  when: ansible_distribution == "Linux Mint"
-
-- name: Install repository for buildah and podman
-  become: "true"
-  template:
-    force: "no"
-    src: kubic-apt-repo.j2
-    dest: /etc/apt/sources.list.d/kubic-project.list
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Add Apt key
-  become: "true"
-  apt_key:
-    url: "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/{{ ab_repo_prefix }}{{ ab_distribution }}_{{ ab_distribution_version }}/Release.key"
-    state: present
-
-- name: Update Apt cache
-  become: "true"
-  apt:
-    update_cache: yes
+  # End the block
+  when: not (ansible_distribution == "Ubuntu" and ansible_distribution_version == "22.04")
