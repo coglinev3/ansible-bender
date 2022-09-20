@@ -22,8 +22,6 @@ The supported Linux distributions for this role are:
 * Enterprise Linux 8, 
 * Debian 10 (Buster),
 * Debian 11 (Bullseye),
-* Fedora 31,
-* Fedora 32,
 * Fedora 34,
 * Fedora 35,
 * Fedora 36,
