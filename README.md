@@ -178,7 +178,7 @@ If you get an answer with "404 Not Found", nginx will work fine. Nginx informs y
 
 ## Version
 
-Release: 1.3.2
+Release: 1.4.0
 
 ## License
 
@@ -186,4 +186,4 @@ BSD
 
 ## Author Information
 
-This Ansible Role was created in 2020, by Cogline.v3.
+Copyright &copy; 2022 Cogline.v3.
