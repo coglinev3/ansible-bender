@@ -1,4 +1,0 @@
----
-# file: roles/ansible-bender/vars/Debian-10.yml
-
-ansible_python_interpreter: /usr/bin/python3

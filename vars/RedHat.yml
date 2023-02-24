@@ -1,11 +1,6 @@
 ---
 # file: roles/ansible_bender/vars/RedHat.yml
 
-ab_dependencies:
-  - buildah
-  - podman
-
 ab_python_packges:
-#  - ansible
-  - ansible-bender
+  - ansible
   - selinux

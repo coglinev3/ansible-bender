@@ -1,9 +1,0 @@
----
-# file: roles/ansible_bender/vars/Alpine.yml
-
-ab_dependencies:
-  - buildah
-  - podman
-
-ab_python_packges:
-  - ansible-bender
