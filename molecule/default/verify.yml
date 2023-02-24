@@ -5,25 +5,25 @@
   hosts: all
   tasks:
     - name: "Get podman version"
-      command: podman --version
+      ansible.builtin.command: podman --version
       register: podman_version
       changed_when: 'podman_version.stdout is defined and "." in podman_version.stdout'
       failed_when: false
 
     - name: Check podman version
-      assert:
+      ansible.builtin.assert:
         that: podman_version.changed
         fail_msg: "podman is not installed properly" 
         success_msg: "{{ podman_version.stdout }} installed correctly"
 
     - name: "Get buildah version"
-      command: buildah --version
+      ansible.builtin.command: buildah --version
       register: buildah_version
       changed_when: 'buildah_version.stdout is defined and "." in buildah_version.stdout'
       failed_when: false
 
     - name: Check buildah version
-      assert:
+      ansible.builtin.assert:
         that: buildah_version.changed
         fail_msg: "buildah is not installed properly" 
         success_msg: "{{ buildah_version.stdout }} installed correctly"
@@ -39,13 +39,13 @@
 #        var: podman_info
 
     - name: "Get ansible-bender version"
-      command: ansible-bender --version
+      ansible.builtin.command: ansible-bender --version
       changed_when: 'bender_version.stdout is defined and "0." in bender_version.stdout'
       failed_when: false
       register: bender_version
 
     - name: Check ansible-bender version
-      assert:
+      ansible.builtin.assert:
         that: bender_version.changed
         fail_msg: "ansible-bender is not installed properly" 
         success_msg: "ansible-bender version {{ bender_version.stdout }} installed correctly"

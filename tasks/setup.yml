@@ -1,9 +1,9 @@
 ---
 # file: roles/ansible-bender/tasks/setup.yml
 
-- name: "Install dependencies for ansible-bender"
+- name: "Install dependencies for ansible-bender."
   become: "true"
-  package:
+  ansible.builtin.package:
     name: "{{ ab_dependencies }}"
     state: "{{ ab_dependencies_package_state | default('present') }}"
   register: ab_dependencies_result
@@ -20,7 +20,7 @@
 
 - name: "Install ansible and ansible-bender"
   become: "true"
-  pip:
+  ansible.builtin.pip:
     name: "{{ ab_python_packges }}"
     state: "{{ ab_python_packge_state }}"
     umask: "0022"

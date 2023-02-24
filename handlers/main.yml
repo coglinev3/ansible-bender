@@ -3,14 +3,14 @@
 
 - name: Sysctl_ping
   become: "true"
-  command: sysctl -p /etc/sysctl.d/60-ping_group_range.conf
+  ansible.builtin.command: sysctl -p /etc/sysctl.d/60-ping_group_range.conf
 
 - name: Sysctl_max_user_namespace
   become: "true"
-  command: sysctl -p /etc/sysctl.d/60-user_namespaces.conf
+  ansible.builtin.command: sysctl -p /etc/sysctl.d/60-user_namespaces.conf
 
 - name: Sysctl_user_namespace
   become: "true"
-  service:
+  ansible.builtin.service:
     name: procps
     state: restarted

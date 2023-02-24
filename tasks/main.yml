@@ -2,7 +2,7 @@
 # file: roles/ansible_bender/tasks/main.yml
 
 - name: Gather os specific variables
-  include_vars: "{{ item }}"
+  ansible.builtin.include_vars: "{{ item }}"
   with_first_found:
     - files:
         - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
@@ -12,8 +12,8 @@
       skip: true
   tags: vars
 
-# Setup/install tasks.
-- include_tasks: "{{ item }}"
+- name: Install tasks.
+  ansible.builtin.include_tasks: "{{ item }}"
   with_first_found:
     - files:
         - "repo-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
@@ -22,8 +22,11 @@
         - "repo-{{ ansible_os_family }}.yml"
       skip: true
 
-- include_tasks: setup.yml
+- name: Setup tasks.
+  ansible.builtin.include_tasks: setup.yml
 
 # Configuration tasks.
-- include_tasks: configure-ansible.yml
-- include_tasks: configure-podman.yml
+- name: Configure Ansible.
+  ansible.builtin.include_tasks: configure-ansible.yml
+- name: Configure Podman.
+  ansible.builtin.include_tasks: configure-podman.yml

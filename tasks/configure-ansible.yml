@@ -1,9 +1,9 @@
 ---
 # file: roles/ansible_bender/tasks/configure-ansible.yml
 
-- name: Ensure directory /etc/ansible exists
+- name: "Ensure directory /etc/ansible exists."
   become: "true"
-  file:
+  ansible.builtin.file:
     path: /etc/ansible
     state: directory
     owner: root
@@ -14,7 +14,7 @@
 
 - name: Create Ansible configuration file
   become: "true"
-  template:
+  ansible.builtin.template:
     force: "no"
     src: ansible.cfg
     dest: /etc/ansible/ansible.cfg
@@ -26,7 +26,7 @@
 
 - name: Create Ansible inventory file
   become: "true"
-  template:
+  ansible.builtin.template:
     force: "no"
     src: hosts.j2
     dest: /etc/ansible/hosts
@@ -38,7 +38,7 @@
 
 - name: Force color mode for Ansible
   become: "true"
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/environment
     regexp: '^export ANSIBLE_FORCE_COLOR'
     line: 'export ANSIBLE_FORCE_COLOR=1'
@@ -51,7 +51,7 @@
 
 - name: Add /usr/local/(bin,sbin) to PATH
   become: "true"
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/environment
     regexp: '^PATH'
     line: 'PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin'

@@ -3,7 +3,7 @@
 
 - name: Ensure directory /etc/containers exists
   become: "true"
-  file:
+  ansible.builtin.file:
     path: /etc/containers
     state: directory
     owner: root
@@ -12,7 +12,7 @@
 
 - name: Configure container registry
   become: "true"
-  template:
+  ansible.builtin.template:
     src: registries.conf.j2
     dest: /etc/containers/registries.conf
     owner: root
@@ -23,7 +23,7 @@
 
 - name: Configure /etc/subuid for rootless mode
   become: "true"
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/subuid
     regexp: '^{{ item }}:900000:65536'
     line: '{{ item }}:900000:65536'
@@ -37,7 +37,7 @@
 
 - name: Configure /etc/subgid for rootless mode
   become: "true"
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/subgid
     regexp: '^{{ item }}:900000:65536'
     line: '{{ item }}:900000:65536'
@@ -51,7 +51,7 @@
 
 - name: Configure ping group range
   become: "true"
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/sysctl.d/60-ping_group_range.conf
     regexp: '^net.ipv4.ping_group_range'
     line: 'net.ipv4.ping_group_range=0 2000000'
@@ -69,7 +69,7 @@
 
 - name: Enable user namespaces
   become: "true"
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/sysctl.d/00-local-userns.conf
     regexp: '^kernel.unprivileged_userns_clone'
     line: 'kernel.unprivileged_userns_clone=1'
@@ -85,7 +85,7 @@
 
 - name: Configure max user namespaces
   become: "true"
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/sysctl.d/60-user_namespaces.conf
     regexp: '^user.max_user_namespaces'
     # line: 'user.max_user_namespaces=2000000'
