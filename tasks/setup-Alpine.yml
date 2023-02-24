@@ -1,0 +1,7 @@
+---
+# file: roles/ansible-bender/tasks/setup-Alpine.yml
+
+- name: "Alpine: Update cache."
+  become: "true"
+  community.general.apk:
+    update_cache: true

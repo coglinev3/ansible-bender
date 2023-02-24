@@ -1,0 +1,7 @@
+---
+# file: roles/ansible-bender/tasks/setup-Debian.yml
+
+- name: "Debian: Update cache."
+  become: "true"
+  ansible.builtin.apt:
+    update_cache: true

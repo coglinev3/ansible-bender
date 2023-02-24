@@ -12,7 +12,7 @@
       skip: true
   tags: vars
 
-- name: Install tasks.
+- name: Install extra repository.
   ansible.builtin.include_tasks: "{{ item }}"
   with_first_found:
     - files:
@@ -21,6 +21,9 @@
         - "repo-{{ ansible_distribution }}.yml"
         - "repo-{{ ansible_os_family }}.yml"
       skip: true
+
+- name: "Include OS specific setup."
+  ansible.builtin.include_tasks: "setup-{{ ansible_os_family }}.yml"
 
 - name: Setup tasks.
   ansible.builtin.include_tasks: setup.yml
