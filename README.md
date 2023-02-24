@@ -18,7 +18,6 @@ The supported Linux distributions for this role are:
 * Alpine Linux 3.14,
 * Alpine Linux 3.15,
 * Alpine Linux 3.16,
-* Enterprise Linux 7,
 * Enterprise Linux 8, 
 * Debian 10 (Buster),
 * Debian 11 (Bullseye),
