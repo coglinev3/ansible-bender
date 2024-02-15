@@ -19,10 +19,8 @@ The supported Linux distributions for this role are:
 * Alpine Linux 3.15,
 * Alpine Linux 3.16,
 * Enterprise Linux 8, 
-* Debian 10 (Buster),
 * Debian 11 (Bullseye),
 * Linux Mint 20 (Ulyana),
-* Ubuntu 18.04 LTS (Bionic Beaver),
 * Ubuntu 20.04 LTS (Focal Fossa),
 * Ubuntu 22.04 LTS (Jammy Jellyfish).
 
