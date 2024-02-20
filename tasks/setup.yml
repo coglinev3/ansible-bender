@@ -11,13 +11,6 @@
   tags:
     - install
 
-# - name: "Upgrade pip to the latest version "
-#   become: "true"
-#   ansible.builtin.pip:
-#     name: pip
-#     state: forcereinstall
-#     executable: pip3
-
 - name: "Install python dependencies"
   become: "true"
   ansible.builtin.pip:
