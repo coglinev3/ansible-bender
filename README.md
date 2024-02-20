@@ -177,7 +177,7 @@ If you get an answer with "404 Not Found", nginx will work fine. Nginx informs y
 
 ## Version
 
-Release: 1.4.1
+Release: 1.5.0
 
 ## License
 
@@ -185,4 +185,4 @@ BSD
 
 ## Author Information
 
-Copyright &copy; 2023 Cogline.v3.
+Copyright &copy; 2024 Cogline.v3.
